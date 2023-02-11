@@ -1,14 +1,22 @@
 //Require axios to make API calls
-const axios = require("axios");
-const API_URL = "https://api.unsplash.com/";
+import axios, { all } from "axios";
+import dotenv from "dotenv";
 
-export const getPhotos = async() => {
+dotenv.config();
+
+const API_URL = "https://api.unsplash.com";
+const ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
+
+export const getPhotos = async(req, res) => {
     try {
-        let res = await axios.get(`${API_URL}/photos`);
-        console.log(res);
+        const allPics = await axios.get(`${API_URL}/photos/?client_id=${ACCESS_KEY}`);
+        let rawUrls =[];
+        // print all raw urls
+        allPics.data.forEach(element => {
+            rawUrls.push(element.urls["raw"])
+        });
+        res.status(200).json({"rawUrls" : rawUrls});
     } catch (error) {
-        res.status(400).json(error);
-        console.log(error);
-        // console.error(error.message);
+        res.status(400).json({"message" : error.message});
     }
 }
