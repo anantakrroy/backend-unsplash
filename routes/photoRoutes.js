@@ -1,8 +1,9 @@
 import express from "express";
-import {getPhotos} from "../controllers/photoController.js";
+import {getPhotoById, getPhotos} from "../controllers/photoController.js";
 
 const photoRoutes = express.Router();
 
-photoRoutes.get("/", getPhotos);
+photoRoutes.get("", getPhotos);
+photoRoutes.get("/:id", getPhotoById);
 
 export default photoRoutes;
