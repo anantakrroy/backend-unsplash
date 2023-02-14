@@ -57,7 +57,6 @@ export const getPhotoByUser = async(req, res) => {
         })}
         res.status(200).json({"photos" : photos});        
     } catch (error) {
-        // console.log(error)
         res.status(`${error.response.status}`).json({"message" : `${error.response.statusText}`});
     }
 }
