@@ -14,6 +14,7 @@ export const getPhotos = async(req, res) => {
     console.log("Called getPhotos controller .....")
     try {
         const allPics = await axios.get(`${API_URL}/photos/?client_id=${ACCESS_KEY}`);
+        console.log(allPics);
         let rawUrls =[];
         // print all raw urls
         allPics.data.forEach(element => {
@@ -37,3 +38,16 @@ export const getPhotoById = async(req,res) => {
         res.status(500).json({"message" : `${error}`});
     }
 }
+
+// GET photos by username
+export const getPhotoByUser = async(req, res) => {
+    console.log("Calling getPhotoByUser controller....");
+    try {
+        const username = req.params.username;
+        const photoByUser = await axios.get(`${API_URL}/users/${username}/photos/?client_id=${ACCESS_KEY}`);
+        res.status(200).json({"photo" : photoByUser});
+    } catch (error) {
+        res.status(`${error.response.status}`).json({"message" : `${error.response.statusText}`});
+    }
+}
+
