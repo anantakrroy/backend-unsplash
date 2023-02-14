@@ -45,8 +45,19 @@ export const getPhotoByUser = async(req, res) => {
     try {
         const username = req.params.username;
         const photoByUser = await axios.get(`${API_URL}/users/${username}/photos/?client_id=${ACCESS_KEY}`);
-        res.status(200).json({"photo" : photoByUser});
+        let photos = [];
+        // console.log(photoByUser);
+        //  keys in res obj --> id, username, description, urls.raw, 
+        for(let photo of photoByUser.data) {
+            photos.push({
+            "id" : photo.id,
+            "username" : username,
+            "description" : photo.description || "No description provided",
+            "url" : photo.urls.raw
+        })}
+        res.status(200).json({"photos" : photos});        
     } catch (error) {
+        // console.log(error)
         res.status(`${error.response.status}`).json({"message" : `${error.response.statusText}`});
     }
 }
