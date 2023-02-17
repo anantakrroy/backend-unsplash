@@ -1,19 +1,18 @@
-class User {
-    constructor(user) {
-        this.username = this.isNotNull(user.username)
-        this.password = this.isNotNull(user.password)
-        this.email = this.isNotNull(user.email) && this.isValidEmail(user.email)
-        this.timestamp = new Date()
-    }
+import { userSchema } from "../config/schema.js";
+import database from "../config/db.js";
+import mongoose from "mongoose";
 
-    isNotNull(str) {
-        return str.length != 0 ? str : new Error("Required field !");
-    }
+const UserModel = mongoose.model('User', userSchema, "users");
 
-    isValidEmail(email) {
-        const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        return email.match(emailFormat) ? email : new Error("Enter valid email !"); 
+  
+
+//  Register a new user
+export const register = async (user) => {
+    try {
+        const newUser = new UserModel({...user, timestamp: Date.now()});
+        // console.log(database.collections)
+        return await newUser.save()
+    } catch (error) {
+        return error.errors;
     }
 }
-
-export default User;
