@@ -10,9 +10,8 @@ const UserModel = mongoose.model('User', userSchema, "users");
 export const register = async (user) => {
     try {
         const newUser = new UserModel({...user, timestamp: Date.now()});
-        // console.log(database.collections)
         return await newUser.save()
     } catch (error) {
-        return error.errors;
+        throw new Error(JSON.stringify(error));
     }
 }

@@ -18,18 +18,15 @@ export const newUser = async (req, res, next) => {
             email: req.body.email,
             password: hashedPassword
         }
-        // console.log(`User in request : ${username} ${email} ${password}`); 
         const modelresponse = await register(user);
-        // console.log(`Model response --> ${modelresponse}`);
-        
         res.send(modelresponse);
     } catch (error) {
-        next(error);
-        // const err = error
-        // res.status(400).json({
-        //     "message" : error
-        // });
-        // console.log(`Controller error ..>`, error);
-        // next(error);
+        //  error from model comes in JSON string format
+        //  error type is Object. Use Object.getOwnPropertyNames to
+        //  get values of keys - "stack" and "message"
+        //  "message" is of interest, convert to JSON
+        //  pass it to the next function so that
+        //  error middleware can handle it
+        next(JSON.parse(error.message));
     }
 }
