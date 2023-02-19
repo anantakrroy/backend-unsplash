@@ -2,25 +2,77 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-//handle field formatting, empty fields, and mismatched passwords
-// const handleValidationError = (err, res) => {
-//     let errors = Object.values(err.errors).map(el => el.message);
-//     let fields = Object.values(err.errors).map(el => el.path);
-//     let code = 400;
-//     if(errors.length > 1) {
-//        const formattedErrors = errors.join(' ');
-//        res.status(code).send({messages: formattedErrors, fields:     fields});
-//      } else {
-//         res.status(code).send({messages: errors, fields: fields})
-//      }
-//  }
+const env = process.env.ENV;
 
 export const errorHandler = (err, req, res, next) => {
-    console.log("Error handler middleware called....",Object.values(err))
-    if(err.name === "ValidationError") {
-        console.log("validotor error called........")
-        res.status(400).json({
-            "message" : err.message,
+    console.log("Error handler middleware called....", Object.getOwnPropertyNames(err));
+    console.log(`Error ------> ${err.name}`);
+    try {
+        // Jsonwebtokenerror
+        if (err.name === "JsonWebTokenError")
+            env === "dev" ? res.status(400).json({
+                "statusCode": 400,
+                "stack": err.stack,
+                "message": err.message + "! Make sure the JWT verify method is correctly used !"
+            }) : res.status(400).json({
+                "statusCode": 400,
+                "message": err.message + "! Make sure the JWT verify method is correctly used !"
+            });
+        // Type error
+        if (err.name === "TypeError")
+            // console.log("refernce error")
+            env === "dev" ? res.status(400).json({
+                "statusCode": 400,
+                "stack": err.stack,
+                "message": err.message
+            }) : res.status(400).json({
+                "statusCode": 400,
+                "message": err.message
+            });
+        // Reference error
+        if (err.name === "ReferenceError")
+            // console.log("refernce error")
+            env === "dev" ? res.status(400).json({
+                "statusCode": 400,
+                "stack": err.stack,
+                "message": err.message
+            }) : res.status(400).json({
+                "statusCode": 400,
+                "message": err.message
+            });
+        // Validation error
+        if (err.name === "ValidationError") {
+            console.log("validator error called........")
+            console.log(err)
+            process.env.ENV === "dev" ? res.status(400).json({
+                "statusCode": 400,
+                "message": err.message,
+                "stack": err.stack
+            }) :
+                res.status(400).json({
+                    "statusCode": 400,
+                    "message": err.message,
+                })
+        }
+        // Duplicate key error
+        if (err.code && err.code === 11000) {
+            console.log("duplicate key error called.......");
+            const prop = Object.keys(err.keyValue);
+            const code = 409
+            const message = `${prop} already exists !`;
+            res.status(code).json({
+                "statusCode": code,
+                "message": message,
+                keys: prop
+            });
+        }
+        // res.status(err.status).json({
+        //     "message" : err.message
+        // });
+    } catch (error) {
+        res.status(500).json({
+            "statusCode": 500,
+            "message": error.name
         })
     }
 }
