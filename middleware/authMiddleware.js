@@ -15,8 +15,15 @@ export const authMiddleware = async (req, res, next) => {
             }
         const token = req.headers.authorization.split(" ")[1];
         const payload = jwt.verify(token, secret);
-        // console.log(token);
-        // console.log(payload);
+        const username = req.params.username;
+        const userLoggingIn = payload.data.username;
+        if (username !== userLoggingIn) {
+            throw {
+                "name": "AuthorizationError",
+                "message": "Unauthenticated user ! You can add photos to your own collection !",
+                "statusCode": 401
+            }
+        }
         req.data = payload.data;
         next();
     } catch (error) {
