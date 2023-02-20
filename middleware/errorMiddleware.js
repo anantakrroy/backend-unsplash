@@ -28,6 +28,16 @@ export const errorHandler = (err, req, res, next) => {
                 "statusCode": 400,
                 "message": err.message + "! Make sure the JWT verify method is correctly used !"
             });
+        // TokenExpiredError
+        if (err.name === "TokenExpiredError")
+            env === "dev" ? res.status(400).json({
+                "statusCode": 400,
+                "stack": err.stack,
+                "message": err.message + "! Login again ! "
+            }) : res.status(400).json({
+                "statusCode": 400,
+                "message": err.message + "! Login again ! "
+            });
         // Type error
         if (err.name === "TypeError")
             // console.log("refernce error")
