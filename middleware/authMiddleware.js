@@ -4,7 +4,6 @@ import dotenv from "dotenv"
 dotenv.config();
 
 const secret = process.env.JWT_SECRET;
-console.log(secret)
 export const authMiddleware = async(req, res, next) => {
     console.log("Auth middleware called ......");
     try {

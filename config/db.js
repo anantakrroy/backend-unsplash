@@ -1,10 +1,10 @@
-import { MongoClient } from "mongodb";
 import mongoose, { mongo } from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const client = mongoose.connect(process.env.MONGO_URI, {
+
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).catch(error => new Error("Unable to connect to database ..."));
@@ -18,5 +18,6 @@ database.on('error', (error) => {
 database.once('connected', () => {
     console.log('Database Connected');
 })
+
 
 export default database;
