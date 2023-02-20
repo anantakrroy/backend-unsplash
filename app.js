@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors";
-import photoRoutes from "./routes/photoRoutes.js";
 import dotenv from "dotenv";
+import photoRoutes from "./routes/photoRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import favoriteRoutes from "./routes/favoritesRoutes.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 
 app.use('/api/photos', photoRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/user/favorites', favoriteRoutes);
 
 app.use(errorHandler);
 
