@@ -39,13 +39,14 @@ export const loginUser = async (req, res, next) => {
     try {
         console.log("Login controller called......");
         const user = req.body;
-        const modelresponse = await login(user)
-        if (user) {
+        const modelresponse = await login(user);
+        if (modelresponse) {
             const passMatch = bcrypt.compareSync(user.password + pepper, modelresponse.password);
             console.log(`Passwords match ? ${passMatch}`);
             if (passMatch) {
                 const token = jwt.sign({
                     data: {
+                        "id" : modelresponse._id,
                         "username": user.username,
                         "email": user.email,
                     }
@@ -54,7 +55,7 @@ export const loginUser = async (req, res, next) => {
                     {
                         expiresIn: "1h"
                     })
-                res.status(200).json({ "token": token });
+                res.status(200).json({ "token": token, "user" : modelresponse });
             } else {
                 res.status(200).json({
                     "message": "Wrong password entered !"
