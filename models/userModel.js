@@ -1,6 +1,6 @@
 import { userSchema } from "../config/schema.js";
-import database from "../config/db.js";
 import mongoose from "mongoose";
+import database from "../config/db.js";
 
 const UserModel = mongoose.model('User', userSchema, "users");
 
@@ -10,7 +10,7 @@ export const register = async (user) => {
         const newUser = new UserModel({...user, timestamp: Date.now()});
         return await newUser.save();
     } catch (error) {
-        throw new Error(JSON.stringify(error));
+        throw error;
     }
 }
 
@@ -22,6 +22,6 @@ export const login = async(user) => {
         const findUser = await UserModel.findOne({email: user.email});
         return findUser;
     } catch (error) {
-        throw new Error(error);
+        throw error;
     }
 }
