@@ -9,8 +9,9 @@ export const userSchema = new Schema({
 })
 
 export const favoritePhotosSchema = new Schema({
-    user: Number,
-    url: String,
-    description: String,
-    username: String
+    user: {type: String, required: "Required user id"},
+    url: {type: String, required: "Required photo raw url"},
+    description: {type: String},
+    username: {type: String, required: "Required unsplash username of photo uploader"},
+    explanation: {type: String}
 })
