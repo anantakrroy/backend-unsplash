@@ -1,7 +1,8 @@
 import express from "express";
 import { addToFavorites } from "../controllers/favoritesController.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const favoriteRoutes = express.Router();
 
-favoriteRoutes.post('/add', addToFavorites)
+favoriteRoutes.post('/:username/add/',authMiddleware, addToFavorites)
 export default favoriteRoutes;
