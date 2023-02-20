@@ -6,7 +6,7 @@ const env = process.env.ENV;
 
 export const errorHandler = (err, req, res, next) => {
     console.log("Error handler middleware called....", Object.getOwnPropertyNames(err));
-    console.log(`Error ------> ${err.name}`);
+    console.log(`Error ------> ${err}`);
     try {
         // Jsonwebtokenerror
         if (err.name === "JsonWebTokenError")
@@ -67,12 +67,12 @@ export const errorHandler = (err, req, res, next) => {
             });
         }
         // res.status(err.status).json({
-        //     "message" : err.message
+        //     "message" : err
         // });
     } catch (error) {
         res.status(500).json({
             "statusCode": 500,
-            "message": error.name
+            "message": "Unexpected error occurred!"
         })
     }
 }
