@@ -1,11 +1,12 @@
 import { favoritePhotosSchema, userSchema } from "../config/schema.js";
 import mongoose from "mongoose";
 import database from "../config/db.js";
+import { all } from "axios";
 
 const favPhotosModel = mongoose.model('Favorites', favoritePhotosSchema, "favoritePhotos");
 const userModel = mongoose.model('User', userSchema, "users");
 
-
+// Add to favorite model
 export const addFavorites = async (photo, username) => {
     try {
         // console.log(`Photo to be added to fav ---> ${Object.entries(photo)} for the user ----> ${username}......`);
@@ -23,13 +24,28 @@ export const addFavorites = async (photo, username) => {
                 }
         } else {
             throw {
-                "name" : "ReferenceError",
-                "message" : "No user found !",
-                "statusCode" : 400
+                "name": "ReferenceError",
+                "message": "No user found !",
+                "statusCode": 400
             }
         }
     } catch (error) {
         console.log(`favorite add model error ----> ${error}`);
         throw error;
     }
-}    
+}
+
+//  Get favorites model
+export const getFavoritePhotos = async (username) => {
+    console.log('get favorites called......');
+    try {
+        // Find the user in users to get user ID
+        const getUser = await userModel.findOne({username: username});
+        const userId = getUser._id;
+        // Find the favorites for the user ID from favoritePhotos
+        const allFavs = await favPhotosModel.find({ user: userId });
+        return allFavs;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
