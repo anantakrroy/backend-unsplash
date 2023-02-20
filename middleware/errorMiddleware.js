@@ -8,6 +8,16 @@ export const errorHandler = (err, req, res, next) => {
     console.log("Error handler middleware called....", Object.getOwnPropertyNames(err));
     console.log(`Error ------> ${err}`);
     try {
+        // Authorization Error
+        if (err.name === "AuthorizationError")
+            env === "dev" ? res.status(err.statusCode).json({
+                "statusCode": err.statusCode,
+                "stack": err.stack,
+                "message": err.message
+            }) : res.status(err.statusCode).json({
+                "statusCode": err.statusCode,
+                "message": err.message
+            });
         // Jsonwebtokenerror
         if (err.name === "JsonWebTokenError")
             env === "dev" ? res.status(400).json({
@@ -66,9 +76,6 @@ export const errorHandler = (err, req, res, next) => {
                 keys: prop
             });
         }
-        // res.status(err.status).json({
-        //     "message" : err
-        // });
     } catch (error) {
         res.status(500).json({
             "statusCode": 500,
