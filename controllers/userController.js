@@ -30,7 +30,7 @@ export const newUser = async (req, res, next) => {
         //  "message" is of interest, convert to JSON
         //  pass it to the next function so that
         //  error middleware can handle it
-        next(JSON.parse(error.message));
+        next(error);
     }
 }
 
