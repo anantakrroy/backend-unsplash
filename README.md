@@ -46,6 +46,12 @@ To complete this assessment, complete every task in **Parts I** through **VII** 
 - [Download Compass](https://www.mongodb.com/try/download/compass) to view your MongoDB database.
 - [Download Postman](https://www.postman.com/downloads/) to test your API endpoints.
 
+
+
+**Note : The API json collection is included in the project. You can also run the API using the Postman button below by forking the collection onto your own Postman collection on your local system**.
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/3264371-95e59fe8-e4fc-4c06-8e4d-66423139dfd7?action=collection%2Ffork&collection-url=entityId%3D3264371-95e59fe8-e4fc-4c06-8e4d-66423139dfd7%26entityType%3Dcollection%26workspaceId%3D250d3452-3089-453e-9168-8df25e93ffba)
+
 **BEFORE YOU START YOUR PROJECT**
 
 Before you start, set up your **Developer** account on **Unsplash** and create an application. You will need to create an application to get your API key. You can find the documentation for the Unsplash API [here](https://unsplash.com/documentation).
@@ -73,7 +79,7 @@ Before you start, set up your **Developer** account on **Unsplash** and create a
       - PEPPER=your-pepper-for-enhanced-security
       - ENV=dev
       - JWT_SECRET=your-jwt-secret
-      
+
 - [✔] Set up the `app.js` file:
   - [✔] Require the `express` module
   - [✔] Set up the `app` object

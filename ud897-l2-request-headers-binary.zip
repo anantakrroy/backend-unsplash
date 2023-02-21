@@ -1,0 +1,373 @@
+{
+	"info": {
+		"_postman_id": "95e59fe8-e4fc-4c06-8e4d-66423139dfd7",
+		"name": "Unsplash API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3264371"
+	},
+	"item": [
+		{
+			"name": "Home route",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000",
+					"host": [
+						"localhost"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List all photos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/photos",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get photo by ID",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Client-ID",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/photos/2vnsXDKcyZI",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"photos",
+						"2vnsXDKcyZI"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get photos by username",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/photos/user/nixcreative",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"photos",
+						"user",
+						"nixcreative"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register new user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"mongoslayer\",\r\n    \"password\": \"abc123\",\r\n    \"email\" : \"mongo@bongo.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/users/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"green_cream\",\r\n    \"email\" : \"cleam@gmail.com\",\r\n    \"password\" : \"passabc123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/users/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiZ3JlZW5fY3JlYW0iLCJlbWFpbCI6ImNsZWFtQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NzY4MTg0NjcsImV4cCI6MTY3NjgyMjA2N30.MeQX5yuRjPGv779vPYos3lQZJqoqfxQG21A9642QH_k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/api/users/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get profile details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiZ3JlZW5fY3JlYW0iLCJlbWFpbCI6ImNsZWFtQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NzY4MjA3NTAsImV4cCI6MTY3NjgyNDM1MH0.R3nlO_txIlCfAwL-yQLa0ibmlxmYvFaa5MFoodVH_K8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/users/me",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add favorite photo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNjNlZjdmYjEzNzFlNjE0NTBhMDRmM2Q1IiwidXNlcm5hbWUiOiJncmVlbl9jcmVhbSIsImVtYWlsIjoiY2xlYW1AZ21haWwuY29tIn0sImlhdCI6MTY3Njk2ODM3MywiZXhwIjoxNjc2OTcxOTczfQ.jTzQ47UNA3G22gUZES9kFy2SqtQF2PZ_-ANU6ZYSXhI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": \"63ef7fb1371e61450a04f3d5\",\r\n    \"url\" : \"https://images.unsplash.com/photo-1676896672060-8fef4f0c786f?ixid=Mnw0MDg4Mzl8MHwxfGFsbHx8fHx8fHx8fDE2NzY5MDQyMjc&ixlib=rb-4.0.3\",\r\n    \"description\" : \"Bride bouquet\",\r\n    \"username\" : \"filipp_roman_photography\",\r\n    \"explanation\" : \"Love the blue flowers in the glass vase !\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/user/favorites/green_cream/add",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"favorites",
+						"green_cream",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get favorite photos of user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNjNlZjdmYjEzNzFlNjE0NTBhMDRmM2Q1IiwidXNlcm5hbWUiOiJncmVlbl9jcmVhbSIsImVtYWlsIjoiY2xlYW1AZ21haWwuY29tIn0sImlhdCI6MTY3NjkwNDY2OCwiZXhwIjoxNjc2OTA4MjY4fQ.Vo2cIg0M6ZTpgEO4qPOy7zApc3rlAF4rF2KTHpy5dH0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/user/favorites/green_cream",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"favorites",
+						"green_cream"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete favorite photo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNjNlZjdmYjEzNzFlNjE0NTBhMDRmM2Q1IiwidXNlcm5hbWUiOiJncmVlbl9jcmVhbSIsImVtYWlsIjoiY2xlYW1AZ21haWwuY29tIn0sImlhdCI6MTY3Njk2ODM3MywiZXhwIjoxNjc2OTcxOTczfQ.jTzQ47UNA3G22gUZES9kFy2SqtQF2PZ_-ANU6ZYSXhI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": {\r\n        \"$oid\": \"63f388e94e02d1bf61422bee\"\r\n    },\r\n    \"user\": \"63ef7fb1371e61450a04f3d5\",\r\n    \"url\": \"https://images.unsplash.com/photo-1676896672060-8fef4f0c786f?ixid=Mnw0MDg4Mzl8MHwxfGFsbHx8fHx8fHx8fDE2NzY5MDQyMjc&ixlib=rb-4.0.3\",\r\n    \"description\": \"Bride bouquet\",\r\n    \"username\": \"filipp_roman_photography\",\r\n    \"explanation\": \"Love the blue flowers in the glass vase !\",\r\n    \"__v\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/user/favorites/green_cream/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"favorites",
+						"green_cream",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update favorite photo description",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiNjNlZjdmYjEzNzFlNjE0NTBhMDRmM2Q1IiwidXNlcm5hbWUiOiJncmVlbl9jcmVhbSIsImVtYWlsIjoiY2xlYW1AZ21haWwuY29tIn0sImlhdCI6MTY3Njk3MTk4MSwiZXhwIjoxNjc2OTc1NTgxfQ.zLI2-MjEH-YJ8fRgGMaXFXWqUyJPPag1LiRZW3PvxcQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"63f485cf7ef11a7e9e61b905\",\r\n    \"description\" : \"New description\",\r\n    \"explanation\" : \"New explanation\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/user/favorites/green_cream/update",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"user",
+						"favorites",
+						"green_cream",
+						"update"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
