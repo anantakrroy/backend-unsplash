@@ -86,6 +86,16 @@ export const errorHandler = (err, req, res, next) => {
                 keys: prop
             });
         }
+        //CastError
+        if (err.name === "CastError")
+            env === "dev" ? res.status(400).json({
+                "name" : err.name,
+                "stack": err.stack,
+                "message": err.message
+            }) : res.status(err.statusCode).json({
+                "name" : err.name,
+                "message": err.message
+            });
     } catch (error) {
         res.status(500).json({
             "statusCode": 500,
