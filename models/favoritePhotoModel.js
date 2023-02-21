@@ -1,5 +1,5 @@
 import { favoritePhotosSchema, userSchema } from "../config/schema.js";
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import database from "../config/db.js";
 import { all } from "axios";
 
@@ -40,7 +40,7 @@ export const getFavoritePhotos = async (username) => {
     console.log('get favorites called......');
     try {
         // Find the user in users to get user ID
-        const getUser = await userModel.findOne({username: username});
+        const getUser = await userModel.findOne({ username: username });
         const userId = getUser._id;
         // Find the favorites for the user ID from favoritePhotos
         const allFavs = await favPhotosModel.find({ user: userId });
@@ -51,15 +51,27 @@ export const getFavoritePhotos = async (username) => {
 }
 
 // Remove from favorites
-export const removeFavoritePhoto = async(photo) => {
+export const removeFavoritePhoto = async (photo) => {
     try {
         const photoId = photo._id.$oid
-        await favPhotosModel.remove({_id: mongoose.Types.ObjectId(photoId)});
+        await favPhotosModel.remove({ _id: mongoose.Types.ObjectId(photoId) });
         return {
-            "message" : `Photo with id ${photoId} removed from favorites`
+            "message": `Photo with id ${photoId} removed from favorites`
         }
     } catch (error) {
-        throw error;        
+        throw error;
     }
 
+}
+
+export const editPhotoDescription = async (id, description, explanation) => {
+    console.log("edit description model called.....");
+    try {
+        await favPhotosModel.findOneAndUpdate({ id: mongoose.Types.ObjectId(id) }, {
+            "description": description,
+            "explanation": explanation
+        }, { new: true });
+    } catch (error) {
+        throw error;
+    }
 }
