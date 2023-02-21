@@ -48,7 +48,7 @@ To complete this assessment, complete every task in **Parts I** through **VII** 
 
 
 
-**Note : The API json collection is included in the project. You can also run the API using the Postman button below by forking the collection onto your own Postman collection on your local system**.
+**Note : You can also run the API using the Postman button below by forking the collection onto your own Postman collection on your local system**.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/3264371-95e59fe8-e4fc-4c06-8e4d-66423139dfd7?action=collection%2Ffork&collection-url=entityId%3D3264371-95e59fe8-e4fc-4c06-8e4d-66423139dfd7%26entityType%3Dcollection%26workspaceId%3D250d3452-3089-453e-9168-8df25e93ffba)
 
