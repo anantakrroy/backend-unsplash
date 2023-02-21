@@ -49,3 +49,17 @@ export const getFavoritePhotos = async (username) => {
         throw new Error(error);
     }
 }
+
+// Remove from favorites
+export const removeFavoritePhoto = async(photo) => {
+    try {
+        const photoId = photo._id.$oid
+        await favPhotosModel.remove({_id: mongoose.Types.ObjectId(photoId)});
+        return {
+            "message" : `Photo with id ${photoId} removed from favorites`
+        }
+    } catch (error) {
+        throw error;        
+    }
+
+}
