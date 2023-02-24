@@ -57,7 +57,7 @@ export const loginUser = async (req, res, next) => {
                 res.status(200).json({ "token": token, "user" : modelresponse });
             } else {
                 res.status(200).json({
-                    "message": "Wrong password entered !"
+                    "message": "Wrong username or password entered !"
                 })
             }
         } else {
