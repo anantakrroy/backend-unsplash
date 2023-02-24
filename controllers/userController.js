@@ -2,7 +2,7 @@
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { register, login } from "../models/userModel.js";
+import { register, login } from "../models/UserModel.js";
 import dotenv from "dotenv";
 
 dotenv.config()
@@ -42,7 +42,6 @@ export const loginUser = async (req, res, next) => {
         const modelresponse = await login(user);
         if (modelresponse) {
             const passMatch = bcrypt.compareSync(user.password + pepper, modelresponse.password);
-            console.log(`Passwords match ? ${passMatch}`);
             if (passMatch) {
                 const token = jwt.sign({
                     data: {
