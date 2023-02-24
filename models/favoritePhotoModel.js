@@ -1,17 +1,29 @@
-import { favoritePhotosSchema, userSchema } from "../config/schema.js";
+// import { favoritePhotosSchema, userSchema } from "../config/schema.js";
+import { UserModel } from "./userModel.js";
 import mongoose, { mongo } from "mongoose";
 import database from "../config/db.js";
 import { all } from "axios";
+const { Schema } = mongoose;
 
-const favPhotosModel = mongoose.model('Favorites', favoritePhotosSchema, "favoritePhotos");
-const userModel = mongoose.model('User', userSchema, "users");
+
+// Favoritephoto schema
+export const favoritePhotosSchema = new Schema({
+    user: { type: String, required: "Required user id" },
+    url: { type: String, required: "Required photo raw url" },
+    description: { type: String },
+    username: { type: String, required: "Required unsplash username of photo uploader" },
+    explanation: { type: String }
+})
+
+
+export const favPhotosModel = mongoose.models.Favorites || mongoose.model('Favorites', favoritePhotosSchema, "favoritePhotos");
 
 // Add to favorite model
 export const addFavorites = async (photo, username) => {
     try {
         // console.log(`Photo to be added to fav ---> ${Object.entries(photo)} for the user ----> ${username}......`);
         const favPhoto = new favPhotosModel(photo);
-        const userExists = await userModel.findOne({ username: username }) || null;
+        const userExists = await UserModel.findOne({ username: username }) || null;
         const favExists = await favPhotosModel.findOne({ url: photo.url }) || null;
         console.log('Is photo already fav ? ---->', favExists)
         if (userExists) {
@@ -40,7 +52,7 @@ export const getFavoritePhotos = async (username) => {
     console.log('get favorites called......');
     try {
         // Find the user in users to get user ID
-        const getUser = await userModel.findOne({ username: username });
+        const getUser = await UserModel.findOne({ username: username });
         const userId = getUser._id;
         // Find the favorites for the user ID from favoritePhotos
         const allFavs = await favPhotosModel.find({ user: userId });

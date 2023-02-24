@@ -1,8 +1,18 @@
-import { userSchema } from "../config/schema.js";
+// import { userSchema } from "../config/schema.js";
 import mongoose from "mongoose";
 import database from "../config/db.js";
+const { Schema } = mongoose;
 
-const UserModel = mongoose.model('User', userSchema, "users");
+// User schema
+export const userSchema = new Schema({
+    username: { type: String, required: "Required username" },
+    password: { type: String, required: "Required password" },
+    email: { type: String, required: "Required email", unique: [true, "Email already taken"] },
+    timestamp: { type: Number, required: "Required timestamp" }
+})
+
+
+export const UserModel = mongoose.models.User || mongoose.model('User', userSchema, "users");
 
 //  Register model
 export const register = async (user) => {
