@@ -6,6 +6,6 @@ const favoriteRoutes = express.Router();
 
 favoriteRoutes.post('/:username/add',authMiddleware, addToFavorites);
 favoriteRoutes.get('/:username',authMiddleware, getFavorites);
-favoriteRoutes.get('/:username/delete',authMiddleware, removeFavorite);
-favoriteRoutes.post('/:username/update',authMiddleware, editDescription);
+favoriteRoutes.delete('/:username/delete',authMiddleware, removeFavorite);
+favoriteRoutes.patch('/:username/update',authMiddleware, editDescription);
 export default favoriteRoutes;
